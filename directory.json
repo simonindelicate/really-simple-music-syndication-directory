@@ -1,7 +1,9 @@
 {
  "directoryVersion": "1",
  "name": "RSMS Directory",
- "updated": null,
+ "description": "An open list of music catalogues published with RSMS (Really Simple Music Syndication): musicians and labels publishing their own records, which any player can read.",
+ "repository": "https://github.com/simonindelicate/really-simple-music-syndication-directory",
+ "updated": "2026-10-05T11:52:16.522Z",
  "count": 0,
  "catalogues": []
 }
