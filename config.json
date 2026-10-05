@@ -3,7 +3,7 @@
   "description": "An open list of music catalogues published with RSMS (Really Simple Music Syndication): musicians and labels publishing their own records, which any player can read.",
   "repository": "https://github.com/simonindelicate/really-simple-music-syndication-directory",
   "workerUrl": "https://rsms-directory.simonindelicate23.workers.dev",
-  "takedownContact": "",
+  "takedownContact": "simonindelicate23@gmail.com",
   "peers": [],
   "dropAfterFailures": 7
 }
