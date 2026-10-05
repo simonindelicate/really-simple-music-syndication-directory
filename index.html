@@ -107,7 +107,6 @@ function matches(c, q) {
 }
 function card(c) {
   const art = c.artworkUrl || c.logoUrl;
-  const listen = config.listenUrl ? `<a class="btn primary" href="${esc(config.listenUrl + encodeURIComponent(c.url))}" target="_blank" rel="noopener">Listen</a>` : '';
   return `<article class="card">
     <div class="cover${art ? '' : ' none'}">${art ? `<img src="${esc(art)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('none');this.parentNode.textContent='${esc((c.name || '?')[0])}'">` : esc((c.name || '?')[0])}</div>
     <div class="body">
@@ -115,7 +114,7 @@ function card(c) {
       <span class="host">${esc(host(c.site || c.url))}</span>
       ${c.description ? `<p class="desc">${esc(c.description)}</p>` : ''}
       <div class="tags"><span>${c.playable} track${c.playable === 1 ? '' : 's'}</span>${(c.genres || []).slice(0, 3).map(g => `<span>${esc(g)}</span>`).join('')}</div>
-      <div class="links">${listen}<a class="btn" href="${esc(c.site || c.url)}" target="_blank" rel="noopener">Visit</a><a class="btn" href="${esc(c.feed || c.url + '/catalogue')}" target="_blank" rel="noopener">Catalogue</a></div>
+      <div class="links"><a class="btn primary" href="${esc(c.site || c.url)}" target="_blank" rel="noopener">Listen</a><a class="btn" href="${esc(c.feed || c.url + '/catalogue')}" target="_blank" rel="noopener">Catalogue</a></div>
     </div>
   </article>`;
 }

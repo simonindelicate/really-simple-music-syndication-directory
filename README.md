@@ -73,7 +73,6 @@ It's checked at once and listed within the hour if it works and is shared. Annou
    - `repository`: your repository's address
    - `takedownContact`: where people should send takedown requests
    - `peers`: other directories' `directory.json` addresses, to share lists with them
-   - `listenUrl`: optional, a player that accepts `?catalogue=`. Leave it empty to hide the Listen buttons.
 2. **Switch on the page.** In the repository's Settings → Pages, choose to deploy from the `main` branch, root folder. Your directory is then at `https://<you>.github.io/<repository>/`.
 3. **Switch on the checks.** In the Actions tab, enable workflows if GitHub asks. The workflow runs hourly and daily by itself. Run it once by hand ("Update the directory" → Run workflow) to check it works.
 4. **Optionally, take submissions.** Without this step your copy still works as a mirror of its peers.

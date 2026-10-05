@@ -3,7 +3,6 @@
   "description": "An open list of music catalogues: musicians and labels publishing their own records, which any player can read.",
   "repository": "",
   "workerUrl": "",
-  "listenUrl": "https://stream-the-indelicates.netlify.app/toys/records.html?catalogue=",
   "takedownContact": "",
   "peers": [],
   "dropAfterFailures": 7
