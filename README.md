@@ -11,6 +11,10 @@ It's built so that nobody controls the list:
 
 It costs nothing to run: GitHub hosts the page and the list and runs the checks, and a tiny Cloudflare Worker on the free plan takes submissions.
 
+## The example player
+
+`listen.html` is a small multi-artist streaming site built on nothing but the list and the catalogues it points to. It shows every catalogue, then a catalogue's records, then a record's tracks. It plays them in one player, with "Shuffle everything" picking songs from right across the directory. It keeps nothing of its own: each catalogue is fetched from the musician's site when it's opened, the music streams from their site, and every song links back to it. It's meant as a demonstration of what anyone can build on the list, and as a starting point to copy.
+
 ## How it fits together
 
 ```

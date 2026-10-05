@@ -22,6 +22,8 @@ main{max-width:1180px;margin:0 auto;padding:clamp(28px,7vw,80px) clamp(16px,4vw,
 h1{margin:0;font:400 clamp(2.8rem,8vw,5.2rem)/.95 var(--serif);letter-spacing:-.02em}
 h1 em{color:var(--accent)}
 .lede{margin:16px 0 0;max-width:60ch;color:var(--muted);font-size:clamp(16px,1.8vw,18px)}
+.lead2{margin:4px 0 0;color:var(--muted)}
+.lead2 a{color:var(--accent)}
 h2{margin:0 0 6px;font:400 clamp(1.6rem,3.6vw,2.2rem)/1.05 var(--serif)}
 section{margin-top:clamp(44px,7vw,72px)}
 .bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin:26px 0 18px}
@@ -65,6 +67,7 @@ footer{margin-top:60px;color:var(--faint);font-size:14px}
 
   <section aria-labelledby="h-browse">
     <h2 id="h-browse">Catalogues</h2>
+    <p class="lead2">Or <a href="listen.html">listen to everything in one player</a>: an example of what anyone can build on this list.</p>
     <div class="bar"><input class="search" id="q" type="search" placeholder="Search by name, artist or genre" aria-label="Search the directory"><span class="count" id="count">Loading…</span></div>
     <div class="grid" id="grid"></div>
     <p class="empty" id="empty" hidden></p>

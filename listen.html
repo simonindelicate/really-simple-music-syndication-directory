@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Listen to everything</title>
+<meta name="description" content="Every catalogue in the directory, in one player, played straight from each musician's own site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f1ec;--panel:#fffdf9;--ink:#1b1719;--muted:rgb(27 23 25/.66);--faint:rgb(27 23 25/.45);--line:rgb(27 23 25/.12);--hover:rgb(27 23 25/.05);--accent:#b2541f;--accent-ink:#fff;--serif:'Instrument Serif',Georgia,serif;--sans:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#121514;--panel:#191d1b;--ink:#eef1ef;--muted:rgb(238 241 239/.66);--faint:rgb(238 241 239/.42);--line:rgb(238 241 239/.12);--hover:rgb(238 241 239/.05);--accent:#e9c46a;--accent-ink:#1b1503}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;padding-bottom:110px}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+[hidden]{display:none!important}
+main{max-width:1180px;margin:0 auto;padding:clamp(24px,5vw,56px) clamp(16px,4vw,40px) 40px}
+.top{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 24px}
+h1{margin:0;font:400 clamp(2.4rem,7vw,4.2rem)/.95 var(--serif);letter-spacing:-.02em}
+h1 em{color:var(--accent)}
+.lede{margin:12px 0 0;max-width:62ch;color:var(--muted)}
+.back{font-size:14px;color:var(--muted)}
+h2{margin:0;font:400 clamp(1.5rem,3.4vw,2rem)/1.1 var(--serif)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:26px 0 18px}
+.search{flex:1 1 240px;min-width:0;height:46px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--panel)}
+.search:focus{outline:none;border-color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:15px;text-decoration:none}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.btn svg{width:18px;height:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px 16px}
+.tile{display:block;text-align:left;min-width:0}
+.tile .art{aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--line);display:grid;place-items:center;font:400 2.6rem var(--serif);color:var(--faint);box-shadow:0 14px 28px -18px rgb(0 0 0/.5)}
+.tile .art img{width:100%;height:100%;object-fit:cover;display:block}
+.tile b{display:block;margin-top:10px;font-size:15.5px;line-height:1.25;overflow-wrap:anywhere}
+.tile small{display:block;color:var(--faint);font-size:13px;overflow-wrap:anywhere}
+.tile:hover .art{outline:2px solid var(--accent);outline-offset:2px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:26px 0 14px;font-size:14px;color:var(--muted)}
+.crumbs button{text-decoration:underline;text-underline-offset:3px}
+.head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:end;margin-bottom:20px}
+.head .art{width:clamp(120px,22vw,220px);aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--line);box-shadow:0 20px 40px -22px rgb(0 0 0/.6)}
+.head .art img{width:100%;height:100%;object-fit:cover;display:block}
+.head p{margin:6px 0 0;color:var(--muted)}
+.head .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+@media (max-width:560px){.head{grid-template-columns:minmax(0,1fr)}}
+ol.tracks{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:6px}
+.tr:hover{background:var(--hover)}
+.tr .n{color:var(--faint);font-variant-numeric:tabular-nums;text-align:right}
+.tr.on .n,.tr.on b{color:var(--accent)}
+.tr b{font-weight:500;overflow-wrap:anywhere}
+.tr small{color:var(--faint);font-variant-numeric:tabular-nums}
+.tr.locked{cursor:default;opacity:.5}
+.msg{padding:30px 0;color:var(--muted)}
+/* player */
+.player{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translate(-50%,140%);transition:transform .5s cubic-bezier(.2,.8,.2,1);width:min(1100px,calc(100% - 20px));display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.3fr);gap:16px;align-items:center;padding:10px 16px 10px 10px;border-radius:18px;background:var(--panel);border:1px solid var(--line);box-shadow:0 20px 50px -20px rgb(0 0 0/.45);z-index:5}
+.player.on{transform:translate(-50%,0)}
+.np{display:flex;gap:12px;align-items:center;min-width:0}
+.np img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex:none;background:var(--line)}
+.np div{min-width:0}
+.np b,.np small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np small{color:var(--faint);font-size:13px}
+.np a{color:var(--accent);text-decoration:none}
+.ctl{display:flex;align-items:center;gap:4px}
+.ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.ib:hover{color:var(--ink);background:var(--hover)}
+.ib svg{width:20px;height:20px}
+.pp{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center}
+.pp svg{width:20px;height:20px}
+.pp .pa,body.playing .pp .pl{display:none}
+body.playing .pp .pa{display:block}
+.ib.on{color:var(--accent)}
+.time{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:18px;background:transparent;--p:0%}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--accent) var(--p),var(--line) var(--p))}
+input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--accent) var(--p),var(--line) var(--p))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;margin-top:-4px;border-radius:50%;background:var(--ink)}
+input[type=range]::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:var(--ink)}
+@media (max-width:760px){.player{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"np ctl" "time time";row-gap:4px}.np{grid-area:np}.ctl{grid-area:ctl}.time{grid-area:time}.ctl .ib.sh{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <a class="back" href="./">← The directory</a>
+      <h1>Listen to <em>everything</em></h1>
+      <p class="lede">Every catalogue in the directory, in one player. The music plays straight from each musician's own site, so every listen goes to them, and every song links back to where they live.</p>
+    </div>
+    <button class="btn primary" id="shuffleAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>Shuffle everything</button>
+  </div>
+  <div id="view"></div>
+</main>
+
+<div class="player" id="player" role="region" aria-label="Player">
+  <div class="np"><img id="npArt" alt=""><div><b id="npT"></b><small id="npS"></small></div></div>
+  <div class="ctl">
+    <button class="ib sh" id="shuffleBtn" aria-label="Shuffle everything" title="Keep shuffling across every catalogue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button>
+    <button class="ib" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5.5h2v13H6zM19 6.3v11.4a.8.8 0 0 1-1.25.66L10 13.2a1.4 1.4 0 0 1 0-2.4l7.75-5.14A.8.8 0 0 1 19 6.3z"/></svg></button>
+    <button class="pp" id="toggle" aria-label="Play or pause"><svg class="pl" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 5.2v13.6a.9.9 0 0 0 1.38.76l10.6-6.8a.9.9 0 0 0 0-1.52L8.88 4.44A.9.9 0 0 0 7.5 5.2z"/></svg><svg class="pa" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+    <button class="ib" id="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5.5h2v13h-2zM5 6.3v11.4a.8.8 0 0 0 1.25.66L14 13.2a1.4 1.4 0 0 0 0-2.4L6.25 5.64A.8.8 0 0 0 5 6.3z"/></svg></button>
+  </div>
+  <div class="time"><span id="tCur">0:00</span><input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek"><span id="tDur">0:00</span></div>
+</div>
+
+<script>
+'use strict';
+/* ==========================================================================
+   An example multi-artist streaming site, built only on the directory and the
+   catalogues it lists. It keeps nothing of its own: every song, cover and name
+   comes from the musician's own catalogue, fetched when it's needed.
+   ========================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = s => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+const host = u => { try { return new URL(u).host.replace(/^www\./, ''); } catch (_) { return u; } };
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+let directory = [];            // entries from directory.json
+const loaded = new Map();      // catalogue url -> Promise of { entry, name, site, releases }
+
+/* ---------- reading catalogues ---------- */
+function absolutise(u, base) { if (!u || typeof u !== 'string') return undefined; try { return new URL(u, base + '/').href; } catch (_) { return undefined; } }
+function loadCatalogue(entry) {
+  if (loaded.has(entry.url)) return loaded.get(entry.url);
+  const p = (async () => {
+    const r = await fetch(entry.feed || entry.url + '/catalogue');
+    if (!r.ok) throw new Error(`The catalogue answered ${r.status}`);
+    const data = await r.json();
+    const name = (data.instance && data.instance.name) || entry.name;
+    const site = absolutise(data.instance && data.instance.url, entry.url) || entry.site || entry.url + '/';
+    const releases = (Array.isArray(data.releases) ? data.releases : []).filter(x => x && Array.isArray(x.tracks)).map(x => {
+      const art = absolutise(x.artworkUrl, entry.url);
+      const rel = { id: x.id, title: x.title || 'Untitled', artist: x.artist || name, year: x.year, art, buyUrl: absolutise(x.buyUrl, entry.url) };
+      rel.tracks = x.tracks.filter(t => t && typeof t === 'object')
+        .map((t, i) => ({ id: t.id, title: t.title || 'Untitled', n: t.trackNumber || i + 1, dur: t.durationSeconds, audio: !t.gated ? absolutise(t.audioUrl, entry.url) : undefined, art: absolutise(t.artworkUrl, entry.url) || art, artist: t.artist || rel.artist, release: rel }))
+        .sort((a, b) => a.n - b.n);
+      return rel;
+    }).filter(x => x.tracks.length);
+    const cat = { entry, name, site, releases };
+    releases.forEach(x => x.catalogue = cat);
+    return cat;
+  })();
+  loaded.set(entry.url, p);
+  p.catch(() => loaded.delete(entry.url));
+  return p;
+}
+
+/* ---------- views ---------- */
+function tileArt(src, label) { return src ? `<div class="art"><img src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.textContent='${esc((label || '?')[0])}'"></div>` : `<div class="art">${esc((label || '?')[0])}</div>`; }
+function showHome() {
+  shownRelease = null;
+  $('#view').innerHTML = `<div class="bar"><input class="search" id="q" type="search" placeholder="Search artists, labels and genres" aria-label="Search"></div><div class="grid" id="grid"></div><p class="msg" id="none" hidden></p>`;
+  const draw = () => {
+    const q = $('#q').value.trim().toLowerCase();
+    const list = directory.filter(c => !q || [c.name, c.description, ...(c.artists || []), ...(c.genres || [])].join(' ').toLowerCase().includes(q));
+    $('#grid').innerHTML = list.map(c => `<button class="tile" data-cat="${esc(c.url)}">${tileArt(c.artworkUrl || c.logoUrl, c.name)}<b>${esc(c.name)}</b><small>${esc((c.genres || [])[0] || host(c.site || c.url))}</small></button>`).join('');
+    $('#none').hidden = list.length > 0; $('#none').textContent = directory.length ? 'Nothing matches that search.' : 'The directory is empty so far.';
+  };
+  $('#q').addEventListener('input', draw); draw();
+}
+async function showCatalogue(url) {
+  const entry = directory.find(c => c.url === url); if (!entry) return showHome();
+  shownRelease = null;
+  $('#view').innerHTML = `<p class="msg">Fetching ${esc(entry.name)}'s catalogue…</p>`;
+  let cat; try { cat = await loadCatalogue(entry); } catch (e) { $('#view').innerHTML = `<p class="msg">${esc(entry.name)}'s catalogue couldn't be loaded just now (${esc(e.message)}). <button class="back" data-home>Back</button></p>`; return; }
+  $('#view').innerHTML = `<div class="crumbs"><button data-home>All catalogues</button><span>›</span><span>${esc(cat.name)}</span></div>
+    <div class="head">${tileArt(entry.logoUrl || entry.artworkUrl, cat.name)}<div><h2>${esc(cat.name)}</h2>${entry.description ? `<p>${esc(entry.description)}</p>` : ''}<div class="acts"><button class="btn primary" data-playcat>Play all</button><a class="btn" href="${esc(cat.site)}" target="_blank" rel="noopener">Visit their site</a></div></div></div>
+    <div class="grid">${cat.releases.map((x, i) => `<button class="tile" data-rel="${i}">${tileArt(x.art, x.title)}<b>${esc(x.title)}</b><small>${esc([x.artist !== cat.name ? x.artist : '', x.year].filter(Boolean).join(', ') || `${x.tracks.length} tracks`)}</small></button>`).join('')}</div>`;
+  $('#view').dataset.cat = url;
+}
+async function showRelease(url, i) {
+  const cat = await loadCatalogue(directory.find(c => c.url === url)); const x = cat.releases[i]; if (!x) return;
+  $('#view').innerHTML = `<div class="crumbs"><button data-home>All catalogues</button><span>›</span><button data-cat="${esc(url)}">${esc(cat.name)}</button><span>›</span><span>${esc(x.title)}</span></div>
+    <div class="head"><div class="art">${x.art ? `<img src="${esc(x.art)}" alt="">` : ''}</div><div><h2>${esc(x.title)}</h2><p>${esc([x.artist, x.year].filter(Boolean).join(', '))}</p><div class="acts"><button class="btn primary" data-playrel="${i}">Play</button>${x.buyUrl ? `<a class="btn" href="${esc(x.buyUrl)}" target="_blank" rel="noopener">Buy it</a>` : ''}<a class="btn" href="${esc(cat.site)}" target="_blank" rel="noopener">${esc(cat.name)}'s site</a></div></div></div>
+    <ol class="tracks">${x.tracks.map((t, j) => `<li class="tr${t.audio ? '' : ' locked'}" data-track="${j}" data-rel="${i}"><span class="n">${t.n}</span><b>${esc(t.title)}</b><small>${t.audio ? fmt(t.dur) : 'Locked'}</small></li>`).join('')}</ol>`;
+  $('#view').dataset.cat = url; shownRelease = x; mark();
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-home],[data-cat],[data-rel],[data-playcat],[data-playrel],[data-track]'); if (!el || !$('main').contains(el)) return;
+  const url = $('#view').dataset.cat;
+  if (el.hasAttribute('data-home')) { history.pushState(null, '', './listen.html'); showHome(); }
+  else if (el.dataset.track != null) { playFrom(url, +el.dataset.rel, +el.dataset.track); }
+  else if (el.hasAttribute('data-playrel')) playFrom(url, +el.dataset.playrel, 0);
+  else if (el.hasAttribute('data-playcat')) playFrom(url, 0, 0, true);
+  else if (el.dataset.rel != null && el.classList.contains('tile')) { history.pushState(null, '', `?c=${encodeURIComponent(url)}&r=${el.dataset.rel}`); showRelease(url, +el.dataset.rel); }
+  else if (el.dataset.cat) { history.pushState(null, '', `?c=${encodeURIComponent(el.dataset.cat)}`); showCatalogue(el.dataset.cat); }
+  scrollTo({ top: 0 });
+});
+function route() {
+  const q = new URLSearchParams(location.search), c = q.get('c');
+  if (c && q.get('r') != null) return showRelease(c, +q.get('r')).catch(() => showCatalogue(c));
+  if (c) return showCatalogue(c);
+  showHome();
+}
+addEventListener('popstate', route);
+
+/* ---------- playing ---------- */
+const audio = new Audio(); audio.preload = 'auto';
+let queue = [], qi = -1, shuffling = false, current = null;
+async function playFrom(url, rel, track, wholeCatalogue) {
+  shuffling = false; $('#shuffleBtn').classList.remove('on');
+  const cat = await loadCatalogue(directory.find(c => c.url === url));
+  const releases = wholeCatalogue ? cat.releases : [cat.releases[rel]];
+  queue = releases.flatMap(x => x.tracks).filter(t => t.audio);
+  const start = wholeCatalogue ? 0 : queue.indexOf(cat.releases[rel].tracks[track]);
+  qi = Math.max(0, start); load();
+}
+async function randomTrack() {
+  // A random catalogue, then a random playable song from it, so small catalogues get their turn too.
+  for (let tries = 0; tries < 8 && directory.length; tries++) {
+    const entry = directory[Math.floor(Math.random() * directory.length)];
+    try { const cat = await loadCatalogue(entry); const all = cat.releases.flatMap(x => x.tracks).filter(t => t.audio && t !== current); if (all.length) return all[Math.floor(Math.random() * all.length)]; } catch (_) {}
+  }
+  return null;
+}
+async function shuffleAll() {
+  shuffling = true; $('#shuffleBtn').classList.add('on');
+  const t = await randomTrack(); if (!t) return;
+  queue = [t]; qi = 0; load();
+}
+function load() {
+  const t = queue[qi]; if (!t) return;
+  current = t; audio.src = t.audio; audio.play().catch(() => {});
+  const cat = t.release.catalogue;
+  $('#npArt').src = t.art || ''; $('#npT').textContent = t.title;
+  $('#npS').innerHTML = `${esc(t.artist)} · <a href="${esc(cat.site)}" target="_blank" rel="noopener">${esc(host(cat.site))}</a>`;
+  $('#player').classList.add('on'); document.title = `${t.title} – ${t.artist}`;
+  if ('mediaSession' in navigator) try { navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, album: t.release.title, artwork: t.art ? [{ src: t.art, sizes: '512x512' }] : [] }); } catch (_) {}
+  mark();
+}
+async function next() {
+  if (qi + 1 < queue.length) { qi++; return load(); }
+  if (shuffling) { const t = await randomTrack(); if (t) { queue.push(t); qi++; load(); } }
+}
+function prev() { if (audio.currentTime > 3 || qi <= 0) { audio.currentTime = 0; return; } qi--; load(); }
+let shownRelease = null;
+function mark() { document.querySelectorAll('.tr').forEach(li => li.classList.toggle('on', !!shownRelease && shownRelease.tracks[+li.dataset.track] === current)); }
+audio.addEventListener('ended', next);
+audio.addEventListener('error', () => { if (current) setTimeout(next, 600); });
+audio.addEventListener('play', () => document.body.classList.add('playing'));
+audio.addEventListener('pause', () => document.body.classList.remove('playing'));
+audio.addEventListener('timeupdate', () => {
+  const d = audio.duration || current?.dur || 0;
+  $('#tCur').textContent = fmt(audio.currentTime); $('#tDur').textContent = fmt(d);
+  const s = $('#seek'); if (!s.matches(':active')) { s.value = d ? audio.currentTime / d * 1000 : 0; s.style.setProperty('--p', (s.value / 10) + '%'); }
+});
+$('#seek').addEventListener('input', e => { const d = audio.duration; if (d) audio.currentTime = e.target.value / 1000 * d; e.target.style.setProperty('--p', (e.target.value / 10) + '%'); });
+$('#toggle').addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+$('#next').addEventListener('click', next); $('#prev').addEventListener('click', prev);
+$('#shuffleAll').addEventListener('click', shuffleAll); $('#shuffleBtn').addEventListener('click', () => shuffling ? (shuffling = false, $('#shuffleBtn').classList.remove('on')) : shuffleAll());
+if ('mediaSession' in navigator) {
+  try { navigator.mediaSession.setActionHandler('nexttrack', next); navigator.mediaSession.setActionHandler('previoustrack', prev); navigator.mediaSession.setActionHandler('play', () => audio.play()); navigator.mediaSession.setActionHandler('pause', () => audio.pause()); } catch (_) {}
+}
+
+(async () => {
+  try { const d = await (await fetch('directory.json', { cache: 'no-cache' })).json(); directory = Array.isArray(d.catalogues) ? d.catalogues : []; }
+  catch (_) { $('#view').innerHTML = `<p class="msg">The directory couldn't be loaded.</p>`; return; }
+  route();
+})();
+</script>
+</body>
+</html>
