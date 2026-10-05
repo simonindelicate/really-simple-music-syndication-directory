@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Catalogue Directory</title>
+<title>RSMS Directory</title>
 <meta name="description" content="An open, mirrorable list of music catalogues published by musicians and labels themselves.">
 <link rel="alternate" type="application/json" title="Directory list" href="directory.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,8 +62,8 @@ footer{margin-top:60px;color:var(--faint);font-size:14px}
 </head>
 <body>
 <main>
-  <h1 id="title">Catalogue <em>Directory</em></h1>
-  <p class="lede" id="lede">An open list of music catalogues: musicians and labels publishing their own records from their own websites, which any player, radio or app can read. Nobody approves entries and nobody owns the list. Anyone can copy it and run their own.</p>
+  <h1 id="title">RSMS <em>Directory</em></h1>
+  <p class="lede" id="lede">An open list of music catalogues published with RSMS, Really Simple Music Syndication: musicians and labels publishing their own records from their own websites, which any player, radio or app can read. Nobody approves entries and nobody owns the list. Anyone can copy it and run their own.</p>
 
   <section aria-labelledby="h-browse">
     <h2 id="h-browse">Catalogues</h2>
@@ -156,7 +156,7 @@ $('#form').addEventListener('submit', async e => {
   try {
     const d = await (await fetch('directory.json', { cache: 'no-cache' })).json();
     all = Array.isArray(d.catalogues) ? d.catalogues : [];
-    if (d.name || config.name) { document.title = d.name || config.name; $('#title').textContent = d.name || config.name; }
+    if (d.name || config.name) { const n = String(d.name || config.name); document.title = n; const i = n.lastIndexOf(' '); $('#title').innerHTML = i > 0 ? `${esc(n.slice(0, i))} <em>${esc(n.slice(i + 1))}</em>` : esc(n); }
     if (d.description || config.description) $('#lede').textContent = (d.description || config.description) + ' Nobody approves entries and nobody owns the list. Anyone can copy it and run their own.';
     const bits = [];
     if (d.updated) bits.push(`List updated ${new Date(d.updated).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}.`);

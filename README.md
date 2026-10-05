@@ -1,6 +1,6 @@
-# Catalogue Directory
+# RSMS Directory
 
-An open list of music catalogues: musicians and labels publishing their own records from their own websites, in the [catalogue format](https://github.com/simonindelicate/Full-generic-music-streaming-app/blob/main/docs/catalogue-format.md), which any player, radio or app can read.
+An open list of music catalogues: musicians and labels publishing their own records from their own websites, in [RSMS, Really Simple Music Syndication](https://github.com/simonindelicate/Full-generic-music-streaming-app/blob/main/docs/catalogue-format.md), which any player, radio or app can read.
 
 It's built so that nobody controls the list:
 
@@ -36,7 +36,7 @@ It costs nothing to run: GitHub hosts the page and the list and runs the checks,
 ```json
 {
   "directoryVersion": "1",
-  "name": "Catalogue Directory",
+  "name": "RSMS Directory",
   "updated": "2026-10-05T03:43:00.000Z",
   "count": 1,
   "catalogues": [
