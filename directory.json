@@ -3,7 +3,103 @@
  "name": "RSMS Directory",
  "description": "An open list of music catalogues published with RSMS (Really Simple Music Syndication): musicians and labels publishing their own records, which any player can read.",
  "repository": "https://github.com/simonindelicate/really-simple-music-syndication-directory",
- "updated": "2026-10-05T11:52:16.522Z",
- "count": 0,
- "catalogues": []
+ "submit": "https://rsms-directory.simonindelicate23.workers.dev/submit",
+ "updated": "2026-10-05T19:50:22.969Z",
+ "count": 3,
+ "catalogues": [
+  {
+   "url": "https://coporatemusicsolution1.netlify.app",
+   "feed": "https://coporatemusicsolution1.netlify.app/catalogue",
+   "name": "SlopCore Apocalypse",
+   "description": "The first rule of no humans club is no petting",
+   "site": "http://localhost:8888/",
+   "logoUrl": "https://music-uploads.joiemikitson.com/uploads/branding/1774882760129-slopcore.png",
+   "artworkUrl": "https://music-uploads.joiemikitson.com/uploads/artwork/1773596162824-plasticalice.jpg",
+   "releases": 43,
+   "tracks": 66,
+   "playable": 66,
+   "artists": [
+    "Alice Plastique",
+    "Clamsauce",
+    "Doctorin' The House",
+    "Droop",
+    "F84",
+    "Flopsy Dominico",
+    "Joey Dickens Jr,",
+    "Jules and Jim"
+   ],
+   "genres": [
+    "Spiky Girl Rock",
+    "Grunge",
+    "New Wave",
+    "Indie",
+    "Britpop",
+    "C86",
+    "Calypso",
+    "Nu Country"
+   ],
+   "feedVersion": "1",
+   "generatedAt": "2026-10-05T19:50:33.985Z",
+   "firstSeen": "2026-10-05T19:50:22.969Z",
+   "lastChecked": "2026-10-05T19:50:22.969Z",
+   "lastOk": "2026-10-05T19:50:22.969Z",
+   "failures": 0
+  },
+  {
+   "url": "https://stream-the-indelicates.netlify.app",
+   "feed": "https://stream-the-indelicates.netlify.app/catalogue",
+   "name": "stream.indelicates.xyz",
+   "description": "Stream Everything by The Indelicates, middleman free.",
+   "site": "https://stream-the-indelicates.netlify.app/",
+   "logoUrl": "https://stream-indelicates.uk/uploads/branding/1775133454500-ADicon.png",
+   "artworkUrl": "https://stream-indelicates.uk/uploads/artwork/1790333498546-AFcov.png",
+   "releases": 41,
+   "tracks": 376,
+   "playable": 375,
+   "artists": [
+    "Simon Indelicate",
+    "The Indelicates",
+    "Simon and Julia Indelicate",
+    "The Thlyds",
+    "The Indelicates and Cat Vincent"
+   ],
+   "genres": [
+    "Happy Hauntology",
+    "Yacht Rock",
+    "Holiday",
+    "Elektromusik",
+    "AI core",
+    "Cabaret",
+    "Hyperpop",
+    "Narrative Alignment"
+   ],
+   "feedVersion": "1",
+   "generatedAt": "2026-10-05T19:50:34.241Z",
+   "firstSeen": "2026-10-05T19:50:22.969Z",
+   "lastChecked": "2026-10-05T19:50:22.969Z",
+   "lastOk": "2026-10-05T19:50:22.969Z",
+   "failures": 0
+  },
+  {
+   "url": "https://cheerful-nasturtium-05e9b5.netlify.app",
+   "feed": "https://cheerful-nasturtium-05e9b5.netlify.app/catalogue",
+   "name": "Test Site #2",
+   "description": "some random music off my PC",
+   "site": "https://cheerful-nasturtium-05e9b5.netlify.app/",
+   "artworkUrl": "https://cheerful-nasturtium-05e9b5.netlify.app/music/covers-album-2019/cover-rx7r.jpg",
+   "releases": 3,
+   "tracks": 46,
+   "playable": 46,
+   "artists": [
+    "The Indelicates"
+   ],
+   "genres": [],
+   "feedVersion": "1",
+   "generatedAt": "2026-10-04T20:33:18.851Z",
+   "firstSeen": "2026-10-05T19:50:22.969Z",
+   "lastChecked": "2026-10-05T19:50:22.969Z",
+   "lastOk": "2026-10-05T19:50:22.969Z",
+   "failures": 0
+  }
+ ]
 }
