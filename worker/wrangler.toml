@@ -1,0 +1,10 @@
+# Deploy with:  npx wrangler deploy   (from this folder)
+# First create the queue store:  npx wrangler kv namespace create QUEUE
+# and paste the id it prints below. Then set the secret:  npx wrangler secret put TOKEN
+name = "catalogue-directory-submit"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "QUEUE"
+id = "PASTE-THE-KV-NAMESPACE-ID-HERE"

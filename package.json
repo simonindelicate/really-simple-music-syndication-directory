@@ -1,0 +1,10 @@
+{
+  "name": "catalogue-directory",
+  "private": true,
+  "type": "module",
+  "description": "An open, mirrorable directory of music catalogues.",
+  "scripts": {
+    "check": "node scripts/check.mjs new",
+    "check:full": "node scripts/check.mjs full"
+  }
+}
