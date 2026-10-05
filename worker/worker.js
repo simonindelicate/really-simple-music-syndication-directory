@@ -52,7 +52,7 @@ export async function inspect(base, fetchImpl = fetch) {
   let res;
   const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), LIMITS.timeoutMs);
   try {
-    res = await fetchImpl(feed, { headers: { Accept: 'application/json', 'User-Agent': 'catalogue-directory (+https://github.com/)' }, redirect: 'follow', signal: ctl.signal });
+    res = await fetchImpl(feed, { headers: { Accept: 'application/json', 'User-Agent': 'rsms-directory (+https://github.com/simonindelicate/really-simple-music-syndication-directory)' }, redirect: 'follow', signal: ctl.signal });
   } catch (e) {
     clearTimeout(timer);
     return { ok: false, reason: `couldn't be reached (${e.name === 'AbortError' ? 'timed out' : 'network error'})` };
