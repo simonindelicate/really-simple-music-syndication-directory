@@ -4,7 +4,7 @@
  "description": "An open list of music catalogues published with RSMS (Really Simple Music Syndication): musicians and labels publishing their own records, which any player can read.",
  "repository": "https://github.com/simonindelicate/really-simple-music-syndication-directory",
  "submit": "https://rsms-directory.simonindelicate23.workers.dev/submit",
- "updated": "2026-10-07T10:35:44.434Z",
+ "updated": "2026-10-08T10:56:34.481Z",
  "count": 3,
  "catalogues": [
   {
@@ -39,10 +39,10 @@
     "Nu Country"
    ],
    "feedVersion": "1",
-   "generatedAt": "2026-10-07T10:35:48.319Z",
+   "generatedAt": "2026-10-08T10:56:36.383Z",
    "firstSeen": "2026-10-05T19:50:22.969Z",
-   "lastChecked": "2026-10-07T10:35:44.434Z",
-   "lastOk": "2026-10-07T10:35:44.434Z",
+   "lastChecked": "2026-10-08T10:56:34.481Z",
+   "lastOk": "2026-10-08T10:56:34.481Z",
    "failures": 0
   },
   {
@@ -74,10 +74,10 @@
     "Narrative Alignment"
    ],
    "feedVersion": "1",
-   "generatedAt": "2026-10-07T10:35:47.778Z",
+   "generatedAt": "2026-10-08T10:56:36.426Z",
    "firstSeen": "2026-10-05T19:50:22.969Z",
-   "lastChecked": "2026-10-07T10:35:44.434Z",
-   "lastOk": "2026-10-07T10:35:44.434Z",
+   "lastChecked": "2026-10-08T10:56:34.481Z",
+   "lastOk": "2026-10-08T10:56:34.481Z",
    "failures": 0
   },
   {
@@ -97,8 +97,8 @@
    "feedVersion": "1",
    "generatedAt": "2026-10-04T20:33:18.851Z",
    "firstSeen": "2026-10-05T19:50:22.969Z",
-   "lastChecked": "2026-10-07T10:35:44.434Z",
-   "lastOk": "2026-10-07T10:35:44.434Z",
+   "lastChecked": "2026-10-08T10:56:34.481Z",
+   "lastOk": "2026-10-08T10:56:34.481Z",
    "failures": 0
   }
  ]
